@@ -16,7 +16,7 @@ EOF
 mkdir -p "$HOME/networkfolder"
 sudo chmod +x vcont
 sudo mv vcont ~bin/
-sudo mv ipaddr.txt ~bin/
+sudo mv nfsipadr.txt ~bin/
 #now we need to install NFS Client if not present, configure NFS IP on client
 sudo apt install nfs-common
 sudo mount -t nfs "$IP":mnt/networkshare "$HOME/networkfolder"
