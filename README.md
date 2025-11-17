@@ -1,6 +1,8 @@
 # vcont
+
 Requires: a running NFS Server, the user to know the dir + ip 
-Usage:
+
+#Usage:
 sudo chmod +x installvcont.sh
 ./installvcont.sh
 
