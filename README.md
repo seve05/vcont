@@ -1,5 +1,4 @@
-# updog it to the nfs server
-Version control for my local network running linux.
+# Version control for my local network running linux.
 
 Requires: a running NFS Server; the user to know the target dir + ip 
 
@@ -10,6 +9,6 @@ sudo chmod +x installupdog.sh
 
 Once installed:
 
-vcont myfile.filenameextension
+updog myfile.filenameextension
 
 You can reconfigure the IP of the server in ~bin/nfsipaddr.txt. 
