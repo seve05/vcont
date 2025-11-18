@@ -5,7 +5,7 @@ read IP
 read -p "Continue? (Y/N): " confirm && [[ $confirm == [yYj] || $confirm == [yYjJ][eEaA][sS] ]] || exit 1
 #exit1 if error such that user can get the ip right
 echo $IP > nfsipaddr.txt
-echo "You can updog the IP adress of the server in case you want to change it in ~bin/nfsipaddr.txt"
+echo "You can update the IP adress of the server in case you want to change it in ~bin/nfsipaddr.txt"
 
 #if future me ever gets asked this question: no indents because EOF syntax "here document" wont allow for it.
 if ! [[ -f "$HOME/updog" ]]; then
