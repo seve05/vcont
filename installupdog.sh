@@ -1,9 +1,12 @@
 #!/bin/bash
 cd
-echo "Please put in the IP of the NFS Server to install updog"
+echo "Please put in the IP-address NFS-Server"
 read IP
-read -p "Continue? (Y/N): " confirm && [[ $confirm == [yYj] || $confirm == [yYjJ][eEaA][sS] ]] || exit 1
+echo "Please put in the mount point like this  mnt/networkshare  to continue installing"
+read Mnt
+read -p "Inputs correct? (Y/N): " confirm && [[ $confirm == [yYj] || $confirm == [yYjJ][eEaA][sS] ]] || exit 1
 #exit1 if error such that user can get the ip right
+echo $Mnt > mntpoint.txt
 echo $IP > nfsipaddr.txt
 echo "You can update the IP adress of the server in case you want to change it in ~bin/nfsipaddr.txt"
 
@@ -13,7 +16,9 @@ cat > updog << 'EOF'
 #!/bin/bash
 IPadrpath="./nfsipaddr.txt"
 IPadr=$(cat "$IPadrpath")
-sudo mount -t nfs "$IPadr":mnt/networkshare "$HOME/networkfolder"
+Mountpath="./mntpoint.txt"
+Mountpnt=$(cat "$Mountpath")
+sudo mount -t nfs "$IPadr":"$Mountpnt" "$HOME/networkfolder"
 dest="$HOME/networkfolder"
 cp -f "$1" "$dest"
 EOF
@@ -30,6 +35,7 @@ fi
 
 sudo chmod +x updog
 sudo mv updog ~bin/
+sudo mv mntpoint.txt ~bin/
 sudo mv nfsipaddr.txt ~bin/
 
 #now we need to install NFS Client if not present, configure NFS IP on client
