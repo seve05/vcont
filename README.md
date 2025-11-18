@@ -2,7 +2,7 @@
 
 Requires: a running NFS Server; the user to know the target dir + ip 
 
-Usage:
+# Installation w install script:
 sudo chmod +x installupdog.sh
 
 ./updog.sh
