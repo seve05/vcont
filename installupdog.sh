@@ -14,9 +14,9 @@ echo "You can update the IP adress of the server in case you want to change it i
 if ! [[ -f "$HOME/updog" ]]; then
 cat > updog << 'EOF'
 #!/bin/bash
-IPadrpath="./nfsipaddr.txt"
+IPadrpath="/bin/nfsipaddr.txt"
+Mountpath="/bin/mntpoint.txt"
 IPadr=$(cat "$IPadrpath")
-Mountpath="./mntpoint.txt"
 Mountpnt=$(cat "$Mountpath")
 sudo mount -t nfs "$IPadr":"$Mountpnt" "$HOME/networkfolder"
 dest="$HOME/networkfolder"
