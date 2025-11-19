@@ -17,7 +17,7 @@ read -p "Inputs correct? (Y/N): " confirm && [[ $confirm == [yYj] || $confirm ==
 #exit1 if error such that user can get the ip right
 echo $Mnt > mntpoint.txt
 echo $IP > nfsipaddr.txt
-echo "You can update the IP adress and server-mountpoint the server by running installupdog.sh -r.sh"
+echo "You can update the IP adress and server-mountpoint the server by running installupdog.sh -r"
 
 
 #checks if systemd is installed so we can automount it using x-systemd.automount
