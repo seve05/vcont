@@ -5,7 +5,7 @@
 #den wir entfernen wollen um durch neue IP und server  mountpoint zu ersetzen
 #dir to execute scripts
 if [[ $1 == "-r" ]]; then
-	echo "Functionality not yet implemented, delete mount entry in '/etc/fstab' and '.mntpoint.txt' '.nfsipaddr.txt' and 'updog' in /usr/bin/ for now. "
+	echo "Functionality not yet implemented, delete mount entry in '/etc/fstab' and '.mntpoint.txt' '.nfsipaddr.txt' and 'updog' in /usr/local/bin/ for now. "
 	exit 1
 fi
 
@@ -61,9 +61,9 @@ else
 fi
 
 sudo chmod +x updog
-sudo mv updog /usr/local/bin
-sudo mv mntpoint.txt /usr/local/bin/.mntpoint.txt
-sudo mv nfsipaddr.txt /usr/local/bin/.nfsipaddr.txt
+mv updog /usr/local/bin
+mv mntpoint.txt /usr/local/bin/.mntpoint.txt
+mv nfsipaddr.txt /usr/local/bin/.nfsipaddr.txt
 
 #now we need to install NFS Client if not present
 sudo apt install nfs-common
