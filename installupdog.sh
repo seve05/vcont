@@ -38,24 +38,31 @@ if grep -q "$pattern" /etc/fstab; then
 fi
 #adding the automount option into /etc/fstab
 cd /etc/
-cat fstab | sudo tee fstab_copy
+sudo cp /etc/fstab /etc/fstab_copy
 echo " "
 echo "$IP:$Mnt $HOME/networkfolder nfs x-systemd.automount  0  0" | sudo tee -a /etc/fstab
 echo "Copy of filesystem table in /etc/fstab_copy. "
 cd 
 
+#----------------------------------
+#need to add a check to see if the folder exists and is accessible
 if ! [[ -f "$HOME/updog" ]]; then
 cat > updog << 'EOF'
 #!/bin/bash
-dest="$HOME/networkfolder"
-cp -f "$1" "$dest"
+if [[ -d "$HOME/networkfolder" ]]; then
+	dest="$HOME/networkfolder"
+	cp -f "$1" "$dest"
+else
+	echo "Error no networkfolder"
+	exit 1
+fi
 EOF
 else
 echo "updog already exists, exiting"
 exit 1
 fi
 #if future me ever gets asked this question: no indents because EOF syntax "here document" wont allow for it.
-
+#---------------------------------
 
 if ! [[ -f "$HOME/networkfolder" ]]; then
 	mkdir -p "$HOME/networkfolder"
