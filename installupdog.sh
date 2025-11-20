@@ -45,7 +45,6 @@ echo "Copy of filesystem table in /etc/fstab_copy. "
 cd 
 
 #----------------------------------
-#need to add a check to see if the folder exists and is accessible
 if ! [[ -f "$HOME/updog" ]]; then
 cat > updog << 'EOF'
 #!/bin/bash
