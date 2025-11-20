@@ -5,7 +5,7 @@
 #den wir entfernen wollen um durch neue IP und server  mountpoint zu ersetzen
 #dir to execute scripts
 if [[ $1 == "-r" ]]; then
-	echo "Functionality is not yet implemented, delete mount entry in '/etc/fstab' and '.mntpoint.txt' '.nfsipaddr.txt' and 'updog' in ~bin/ for now. "
+	echo "Functionality not yet implemented, delete mount entry in '/etc/fstab' and '.mntpoint.txt' '.nfsipaddr.txt' and 'updog' in /usr/bin/ for now. "
 	exit 1
 fi
 
@@ -60,12 +60,10 @@ else
 	echo "cant create networkfolder, already exists, if intentional: please ignore"
 fi
 
-#need to find a better directory other than ~bin/ which is root dir -
-#> add it to the $PATH variable (which gets scanned when typing in a command in the shell)
 sudo chmod +x updog
-sudo mv updog ~bin/
-sudo mv mntpoint.txt ~bin/.mntpoint.txt
-sudo mv nfsipaddr.txt ~bin/.nfsipaddr.txt
+sudo mv updog /usr/local/bin
+sudo mv mntpoint.txt /usr/local/bin/.mntpoint.txt
+sudo mv nfsipaddr.txt /usr/local/bin/.nfsipaddr.txt
 
 #now we need to install NFS Client if not present
 sudo apt install nfs-common
