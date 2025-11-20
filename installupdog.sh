@@ -60,7 +60,8 @@ else
 	echo "cant create networkfolder, already exists, if intentional: please ignore"
 fi
 
-#need to find a better directory other than ~bin/ which is root dir
+#need to find a better directory other than ~bin/ which is root dir -
+#> add it to the $PATH variable (which gets scanned when typing in a command in the shell)
 sudo chmod +x updog
 sudo mv updog ~bin/
 sudo mv mntpoint.txt ~bin/.mntpoint.txt
