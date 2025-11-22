@@ -1,11 +1,40 @@
 #!/bin/bash
 
-#still need to add functionality to reconfigure the nfs client (without having to go into /etc/fstab manually
-#wir behalten mntpoint.txt und nfsipaddr.txt, damit wir bei aenderung wieder den eintrag in etc/fstab finden koennen
-#den wir entfernen wollen um durch neue IP und server  mountpoint zu ersetzen
+# option -r to reconfigure the mount and ip, also edits etc/fstab to remove old entry+add new
 if [[ $1 == "-r" ]]; then
-	echo "Functionality not yet implemented, delete mount entry in '/etc/fstab' and '.mntpoint.txt' '.nfsipaddr.txt' and 'updog' in /usr/local/bin/ for now. "
-	exit 1
+#need to add .nfsipaddr_two.txt in /usr/local/bin/
+	cd /usr/local/bin
+	echo "New target IP: "
+	read newip
+	echo $newip > .nfsipaddr_two.txt
+	
+#need to add .mntpoint_two.txt	/usr/local/bin/
+	echo "New mountpoint on the server: "
+	read newmnt
+	echo $newmnt > .mntpoint_two.txt
+
+#need to make copy of /etc/fstab
+	cd /etc/			
+	sudo cp -f /etc/fstab /etc/fstab_recovery #can recover original state
+	
+#then we change the line in fstab itself
+	oldip=$(cat /usr/local/bin/.nfsipaddr.txt)
+	oldmnt=$(cat /usr/local/bin/.mntpoint.txt)	
+#create old line
+	oldline=$(echo "$oldip:$oldmnt") 
+	echo "$oldline"	
+#delete fstab entry with grep inverse matching
+	grep -v "$oldline" fstab > clearedfstab
+	cp -f clearedfstab fstab
+	rm clearedfstab
+	
+	echo "$newip:$newmnt $HOME/networkfolder nfs x-systemd.automount  0  0" | sudo tee -a /etc/fstab
+	cd /usr/local/bin
+	# replace old with new or next time we run this we only add to last change
+	cp -f .mntpoint_two.txt .mntpoint.txt	
+	cp -f .nfsipaddr_two.txt .nfsipaddr.txt	
+	printf "Changed successfully."	
+	exit 0
 fi
 
 cd
@@ -16,14 +45,14 @@ read Mnt
 read -p "Inputs correct? (Y/N): " confirm && [[ $confirm == [yYj] || $confirm == [yY][eE][sS] ]] || exit 1
 echo $Mnt > mntpoint.txt
 echo $IP > nfsipaddr.txt
-echo "You can update the IP adress and server-mountpoint the server by running installupdog.sh -r"
+echo "You can update the IP adress and server-mountpoint the server by running sudo installupdog.sh -r"
 echo " "
 
 #checks if systemd is installed so we can automount it using x-systemd.automount
 systemctl --version | grep systemd > systemdoutput 
-systemdee=$(cat "$HOME/systemdoutput")
+systemdeez=$(cat "$HOME/systemdoutput")
 #-z is TRUE if the string is EMPTY
-if [[ -z "$systemdee" ]]; then
+if [[ -z "$systemdeez" ]]; then
 	echo "Error, there is no systemd installed we cannot use automount to mount client-side"
 	rm systemdoutput
 	exit 1
