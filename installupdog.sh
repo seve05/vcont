@@ -104,5 +104,6 @@ sudo mv mntpoint.txt /usr/local/bin/.mntpoint.txt
 sudo mv nfsipaddr.txt /usr/local/bin/.nfsipaddr.txt
 
 #now we need to install NFS Client if not present
+#should add support for more package mangers
 sudo apt install nfs-common
 echo "NFS will be mounted on next restart."
