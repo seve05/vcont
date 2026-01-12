@@ -10,7 +10,11 @@ sudo chmod +x installupdog.sh
 ./installupdog.sh
 
 ### Once installed:
+you can do:
+
 updog Myfile.filnameextension 
+
+or
 
 updog Mydirectory
 
