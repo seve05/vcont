@@ -25,3 +25,5 @@ This performs some checks and replaces the old file in the target dir with the c
 sudo ./installupdog.sh -r 
 
 To reconfigure the target IP, server mountpoint
+
+## to add macos machine in /etc/exports add "insecure" to the attributeslist bc mac wants to use port 1024 
